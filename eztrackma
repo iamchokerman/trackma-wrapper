@@ -21,7 +21,7 @@ case $PROMPT in
     CHOICE=$(printf "filter watching\nls"|trackma -a 1|grep -Eo "$REGEX"|$FZF -i --prompt="Choose an anime to watch: ")
     INDEX=$(printf "%s" "$CHOICE"|cut -d" " -f1)
 		ANIME="$(trackma -a 1 info "$INDEX"|head -n 1)"
-		EPNUM="$(trackma -a 1 search "$ANIME"|sed -En "s/.*\.[[:space:]]+([0-9]*) \/.*/\1/p")"
+		EPNUM="$(trackma -a 1 search "$ANIME"|sed -En "s/.*\.[[:space:]]+([0-9]*) \/.*/\1/p"|head -n 1)"
 		animdl stream "$ANIME" -r $((EPNUM+1))
 		# ani-cli -a $((EPNUM+1)) "$ANIME"
 		while true; do
